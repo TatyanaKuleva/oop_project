@@ -12,5 +12,5 @@ def first_product():
 @pytest.fixture
 def first_category():
     return Category(
-        name="first category", description="first category is a first category", products=["first", "second", "third"]
+        name="first category", description="first category is a first category", products=["First", "Second", "Third"]
     )
