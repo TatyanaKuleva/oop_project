@@ -10,7 +10,7 @@ class Product:
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price
         self.quantity = quantity
 
     @classmethod
@@ -27,14 +27,21 @@ class Product:
                         price = item.price
         return Product(name, description, price, quantity)
 
+    @property
+    def price(self):
+        return self.__price
 
-if __name__ == "__main__":
-    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
-    new_product = Product.new_product(
-        {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
-         "quantity": 5}, [product1])
-    print(new_product.name)
-    print(new_product.description)
-    print(new_product.price)
-    print(new_product.quantity)
+    @price.setter
+    def price(self, new_price):
+        if new_price <= 0:
+            print(f"Цена не должна быть нулевая или отрицательная")
+        elif new_price < self.__price:
+            user_answer = input('Подтвердите понижение цены: "y" или "n" ')
+            if user_answer == 'y':
+                self.__price = new_price
+
+
+
+
+
 
