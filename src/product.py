@@ -13,6 +13,14 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self):
+        return f'{self.name}, {self.__price} руб. Остаток: {self.quantity} шт.'
+
+    def __add__(self, other):
+        sum_product = self.__price * self.quantity + other.price * other.quantity
+        return sum_product
+
+
     @classmethod
     def new_product(cls, dict_product, excisting_list=None):
         name = dict_product['name']
@@ -39,6 +47,8 @@ class Product:
             user_answer = input('Подтвердите понижение цены: "y" или "n" ')
             if user_answer == 'y':
                 self.__price = new_price
+
+
 
 
 

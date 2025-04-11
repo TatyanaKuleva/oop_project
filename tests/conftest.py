@@ -2,6 +2,7 @@ import pytest
 
 from src.category import Category
 from src.product import Product
+from src.iter_category import IterCategory
 
 
 @pytest.fixture
@@ -30,4 +31,8 @@ def dict_product():
     dict_product = {"name": "Samsung Galaxy S23 Ultra", "description": "256GB, Серый цвет, 200MP камера", "price": 180000.0,
          "quantity": 5}
     return dict_product
+
+@pytest.fixture
+def test_productiter(first_category):
+    return IterCategory(first_category)
 
