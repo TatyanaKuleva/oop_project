@@ -29,4 +29,9 @@ def test_product_iterator(test_productiter):
 def test_category_str(first_category):
     assert str(first_category) == 'first category, количество продуктов: 30 шт.'
 
+def test_category_setter_smartfone(first_category, test_smartfone_1):
+    first_category.products = test_smartfone_1
+    assert first_category.products[-1] == 'Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.'
+
+
 
