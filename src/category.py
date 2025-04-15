@@ -1,8 +1,10 @@
 from mypy.types import names
 
 from src.product import Product
+from src.abstract_class import Abstract
 
-class Category:
+
+class Category(Abstract):
     name: str
     description: str
     products: list
@@ -23,6 +25,7 @@ class Category:
         for product in self.__products:
             count += product.quantity
         return f'{self.name}, количество продуктов: {count} шт.'
+
 
     def add_product(self, product):
         if isinstance(product, Product):
