@@ -5,6 +5,7 @@ from src.product import Product
 from src.iter_category import IterCategory
 from src.lawngrass import LawnGrass
 from src.smartfone import Smartphone
+from src.order import Order
 
 
 @pytest.fixture
@@ -55,3 +56,14 @@ def test_lawngrass_1():
 def test_lawngrass_2():
     return LawnGrass("Газонная трава 2", "Выносливая трава", 450.0, 15, "США", "5 дней", "Темно-зеленый")
 
+@pytest.fixture
+def category_without_product():
+    return Category(
+        name="first category",
+        description="first category is a first category",
+        products=[]
+    )
+
+@pytest.fixture
+def first_order():
+    return Order(Product(name="first product", description="first product is a first product", price=3.0, quantity=10), 10)

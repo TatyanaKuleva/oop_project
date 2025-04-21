@@ -2,6 +2,7 @@ from mypy.types import names
 
 from src.product import Product
 from src.abstract_class import Abstract
+from src.exceptions import ZeroPriceProduct
 
 
 class Category(Abstract):
@@ -29,8 +30,17 @@ class Category(Abstract):
 
     def add_product(self, product):
         if isinstance(product, Product):
-            self.__products.append(product)
-            Category.product_count += 1
+            try:
+                if product.price == 0:
+                    raise ZeroPriceProduct('Нельзя добавить товар с ценой равной нулю')
+            except ZeroPriceProduct as e:
+                print(str(e))
+            else:
+                self.__products.append(product)
+                Category.product_count += 1
+                print('Товар добавлен')
+            finally:
+                print('Обработка добавления товара завершена')
         else:
             raise TypeError
 
@@ -45,6 +55,25 @@ class Category(Abstract):
     def products(self, product:Product):
         self.__products.append(product)
         self.product_count +=1
+
+    def middle_price(self):
+        try:
+            return round(sum(product.price for product in self.__products)/len(self.__products),2)
+        except ZeroDivisionError:
+            return 0
+
+if __name__ == '__main__':
+
+    product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
+    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+    product3 = Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+
+    category1 = Category("Смартфоны", "Категория смартфонов", [product1, product2, product3])
+
+
+    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 0, 7)
+    category1.add_product(product4)
+
 
 
 

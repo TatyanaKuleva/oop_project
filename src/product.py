@@ -13,7 +13,10 @@ class Product(BaseProduct, PrintMixin):
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        if quantity > 0:
+            self.quantity = quantity
+        else:
+            raise ValueError('Товар с нулевым количеством не может быть добавлен')
         super().__init__()
 
     def __str__(self):
@@ -50,6 +53,16 @@ class Product(BaseProduct, PrintMixin):
             user_answer = input('Подтвердите понижение цены: "y" или "n" ')
             if user_answer == 'y':
                 self.__price = new_price
+
+
+if __name__ == '__main__':
+    try:
+        product_invalid = Product("Бракованный товар", "Неверное количество", 1000.0, 0)
+    except ValueError as e:
+        print(
+            "Возникла ошибка ValueError прерывающая работу программы при попытке добавить продукт с нулевым количеством")
+    else:
+        print("Не возникла ошибка ValueError при попытке добавить продукт с нулевым количеством")
 
 
 
